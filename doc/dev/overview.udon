@@ -1,0 +1,39 @@
+;>
+
+This desk contains two agents: `%zulu` and `%zulu-follower`.
+
+# zulu
+
+`%zulu` maintains a stack that can be manipulated using pokes:
+
+```
+:zulu &zulu-action [%push ~zod 123.456]
+```
+
+This pushes the value `123.456` onto ~zod's stack. If we are not ~zod, we will forward the poke to ~zod.
+
+The target ship will send a `%zulu-update` fact on path `/values`.
+
+```
+:zulu &zulu-action [%pop ~zod]
+```
+
+This pops the top of ~zod's stack. As above, if we are not ~zod, we will forward the poke to ~zod.
+
+The target ship will send a `%zulu-update` fact on path `/values`.
+
+# zulu-follower
+
+`%zulu-follower` subscribes to `%zulu` and prints stack updates to the dojo. Subscriptions can be manipulated using pokes:
+
+```
+:zulu-follower &noun [%sub ~nec]
+```
+
+This subscribes to ~nec's stack.
+
+```
+:zulu-follower &noun [%unsub ~nec]
+```
+
+This unsubscribes from ~nec's stack.
