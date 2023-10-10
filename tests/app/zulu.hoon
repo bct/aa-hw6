@@ -92,11 +92,14 @@
   =|  run=@ud
   =^  mov1  agent  (poke-push ~zod 10.000)
   =^  mov2  agent  (poke-push ~zod 20.000)
+  :: on-peek returns a (unit (unit cage))
+  :: result is a cage
+  =/  result  (need (need (~(on-peek agent bowl) [%x %values ~])))
+  :: we can't compare the cage directly. it contains a vase, and en-vasing
+  :: a vase produces values that don't compare well.
   %+  expect-eq
     !>  `(list @)`~[20.000 10.000]
-    :: is there some way to clean this up?
-    :: this is a (unit (unit cage))
-    q:(need (need (~(on-peek agent bowl) [%x %values ~])))
+    q.result
 ++  test-watch
   =|  run=@ud
   =^  mov1  agent  (poke-push ~zod 10.000)
